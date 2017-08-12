@@ -69,3 +69,125 @@ Nota: los algoritmos importan menos de lo que piensas.
 
 Casi siempre es un intercambio de precisión con alguna de las cuestiones 
 presentadas encima.
+
+# En la muestra versus fuera de la muestra
+
+Error en la muestra: La tasa de errores que obtienes en el mismo conjunto
+de datos que usaste para construir tu predictor. Algunas veces llamado 
+error de resustitución.
+
+Error fuera de la muestra: La tasa de errores que obtienes en un nuevo 
+conjunto de datos. Algunas veces llamado error de generalización.
+
+Ideas principales:
+
+1) Error fuera de la muestra es lo que te importa
+2) Error en la muestra < error fuera de la muestra
+3) La razón es overfitting
+	* Emparejar tu algoritmo con los datos que tienes
+
+# Overfitting
+
+* Datos tienen dos partes: Señal y Ruido
+* El objetivo del predictor es encontrar la señal
+* Siempre puedes diseñar un predictor perfecto para la muestra
+* Capturas los dos señal + ruido cuando haces eso
+* El rendimiento de esos predictores no es tan bueno en nuevas muestras
+
+# Diseño de estudio de predicción
+
+1) Define tu tasa de error
+2) Divide los datos en: entrenamiento, pruebas y validación (opcional)
+3) En los datos de entrenamiento, escoge las caracteristicas. Usa validación
+cruzada
+4) En los datos de entrenamiento, establece una función de predicción. Usa
+validación cruzada
+5) Si no hay validación aplica el mejor predicto que tengas en el conjunto
+de entrada UNA solo vez
+6) Si hay validación. Aplica tu mejor predictor en el conjunto de datos de pruebas
+y refinalo. Finalmente, aplica el predictor en el conjunto de datos de 
+validación UNA sola vez
+
+# Evita muestras de tamaño pequeño
+
+* Supón que estas prediciendo una salida binaria. Por ejemplo, enfermo/sano, 
+clic / no clic.
+* Un clasificador es lanzar una moneda
+* Las probabilidades de un clasificador perfecto es aproximadamente:
+(0.5)^n, donde n es el tamaño de la muestra. Entonces para n= 1, p=0.5.
+Para n=2, p= 0.25. Para n=10, p=0.001
+
+# Regla de oro para diseño de estudios de predicción
+
+* Si tienes una muestra grande, entonces 60% es de entrenamiento, 20% es para
+pruebas y 20% para validación
+* Si tienes muestras de tamaño mediano, entonces 60% para entrenamiento y
+40% para pruebas
+* Si tienes muestras de tamaño pequeño, entonces haz validación cruzada y
+reporta advertencias de un conjunto de datos pequeño
+
+# Algunos principios para recordar
+
+* Establece un conjunto de pruebas/validación aparte y no lo mires
+* En general, una muestra aleatoria de entrenamiento y pruebas
+* Tus datos deben reflejar una estructura del problema.
+* Si tus datos evolucionan con el tiempo, divide entrenamiento/pruebas en
+pedazos de tiempo (llamado backtesting en finanzas)
+* Todos los subconjuntos deben reflejar tanta diversidad como sea posible
+* Asignaciones aleatorias lo hacen
+* También puedes tratar de balancear por caracteristicas, pero esto es difícil
+
+# Tipos de errores
+
+En general (para clases binarias), positivo = identificado y negativo = rechazado. 
+Por consiguiente:
+
+Verdadero positivo = correctamente identificado
+Falso positivo = incorrectamente identificado
+Verdadero negativo = correctamente rechazado
+Falso negativo = incorrectamente rechazado
+
+Por ejemplo, pruebas medicas:
+
+Verdadero positivo = personas enfermas correctamente diagnosticadas como enfermas
+Falso positivo = personas saludables incorrectamente identificadas como enfermas
+Verdadero negativo = personas saludables correctamente identificadas como saludables
+Falso negativo = personas enfermas incorrectamente identificadas como saludables
+
+Test = Predictor, Disease = Real true
+
+Sensitivity => Pr (positive test | disease) => TP / (TP + FN)
+Specificity => Pr (negative test | no disease) => TN / (FP + TN)
+Positive predictive value => Pr (disease | positive test) => TP / (TP + FP)
+Negative predictive value => Pr (correct outcome) (TP + TN) / (TP + FP + FN + TN)
+
+En datos continuos buscamos minimizar la media de la raiz cuadrada del error al cuadrado RMSE
+
+# Errores comunes
+
+1) La media de los errores al cuadrado (MSE) o el RMSE en datos continuos es
+sensible a punto fuera de la curva.
+2) La desviación absoluta de la mediana (Median absolute deviation) 
+en datos continuos es frecuentemente más robusta
+3) Optimizar sensividad (Recall) si quieres perder pocos positivos
+4) Optimizar especificidad si quieres pocos negativos enmascarados de positivos
+5) Optimizar precision si quieres un equilibrio entre los falsos 
+positivos/negativos igualmente
+6) Concordancia. Por ejemplo, kappa.
+
+# Caracteristicas del funcionamiento del receptor (ROC)
+Sirve para medir la calidad de que tan bueno es un algoritmo de predicción.
+
+¿Por qué una curva?
+
+* En clasificación binaria, predices una de dos categorias.
+* Sin embargo, tus predicciones son frecuentemente cuantitativas. Por ejemplo,
+probabilidades de estar vivo, predicciones en una escala de 1 a 10
+* El corte que escojes da un resultado diferente
+* Se usa receiver operating characteristic para calcular eso.
+Eje x es 1 - Especifidad (la probabilidad de ser un falso positivo).
+El eje y es sensitividad (la probabilidad de ser un verdadero positivo).
+Esa curvas sirven para ver la compensaciones de cada algoritmo.
+A mayor área bajo la curva, mejor rendimiento tiene el predictor.
+AUC = 0.5 es adivinar. AUC = 1 es un clasificador perfecto. 
+Un clasificador con AUC arriba de 0.8 es considerado "bueno".
