@@ -236,3 +236,27 @@ varianza. A menor k más parcialidad, pero menos varianza.
 Puede ser corregido, pero es dificil (0.632 bootstrap).
 * Si tu validación cruzada escoge estimación de predictores debes calcular
 errores en datos independientes.
+
+# ¿Qué datos deberia usar?
+
+Un ejemplo es el blog FiveThirtyEight de Nate Silver quien recolectó datos de
+diversas fuentes y las compilo en ese blog junto con varios analisis en las
+campañas presidenciales de los estados unidos. Detectando que inclusive en 
+encuestas con parcialidad ofrecian información importante.
+
+Si quieres predecir X, usa datos relacionados con X. Por ejemplo, en MoneyBall
+se usaban datos del rendimiento de los jugadores para predecir el rendimiento
+de los jugadores.
+
+Sin embargo, no es una regla escrita en piedra. Por ejemplo, Google usó datos
+en su motor de busqueda para detectar epidemias de influenza.
+
+Mientras más desconectados los datos, mas dificil es de predecir.
+Las propiedades de los datos importan. Por ejemplo, en el caso de 
+Google Flu Trends las palabras que identificaban gripa cambiaron a traves 
+del tiempo y eso hizo que el predictor se volviera impreciso.
+
+Datos no relacionados es el error más comun. Por ejemplo, el uso de 
+consumo de chocolate para predecir la densidad de premios Nobel por país.
+Pueden haber otras variables por debajo, como que las naciones europeas
+producen más chocolate.
