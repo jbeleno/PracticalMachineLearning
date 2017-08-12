@@ -191,3 +191,48 @@ Esa curvas sirven para ver la compensaciones de cada algoritmo.
 A mayor área bajo la curva, mejor rendimiento tiene el predictor.
 AUC = 0.5 es adivinar. AUC = 1 es un clasificador perfecto. 
 Un clasificador con AUC arriba de 0.8 es considerado "bueno".
+
+# Validación cruzada
+
+1) Precisión en el conjunto de entrenamiento (precisión de resustitución) 
+es frecuentemente optimista
+2) Una estimativa mejor viene de un conjunto independiente (precisión del conjunto de pruebas)
+3) Pero no podemos usar el conjunto de pruebas cuando estamos construyendo 
+el modelo o se convertiria en parte del conjunto de entrenamiento
+4) Entonces estimamos la mejor precisión del conjunto de pruebas con el 
+conjunto de entrenamiento
+
+Metodologia
+
+1) Usar el conjunto de entrenamiento
+2) Dividirlo en conjuntos de entrenamiento y pruebas
+3) Crear un modelo con el conjunto de entrenamiento
+4) Evaluar en el conjunto de pruebas
+5) Repetir y calcular en promedio los errores de estimación
+
+Usado para
+
+1) Escoger las variables a ser incluidas en el modelo
+2) Escoger el tipo de función de predicción
+3) Escoger los parametros en la función de predicción
+4) Comparar diferentes predictores
+
+Formas de hacerlo
+
+* Aleatoriamente
+* K-fold: dividir el conjunto de datos en k subconjuntos. Entrenamos en k-n
+folds y ponemos a prueba en n folds. Repitiendo el proceso k - n veces
+con un conjunto de pruebas diferente.
+* Leave one out: Dejar un solo dato por fuera y entrenar con los demas y asi
+hasta usar cada registro en la muestra como conjunto de pruebas.
+
+Consideraciones
+
+* Para series temporales, los datos deben usar "chunks"
+* Para validación cruzada con k-folds. A mayor k menos parcialidad, pero más 
+varianza. A menor k más parcialidad, pero menos varianza.
+* Muestras aleatorias deben ser sin reposición.
+* Muestras aleatorias con reposición es bootstrap. Subestima el error. 
+Puede ser corregido, pero es dificil (0.632 bootstrap).
+* Si tu validación cruzada escoge estimación de predictores debes calcular
+errores en datos independientes.
