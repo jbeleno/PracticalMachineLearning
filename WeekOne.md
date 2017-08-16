@@ -143,22 +143,31 @@ En general (para clases binarias), positivo = identificado y negativo = rechazad
 Por consiguiente:
 
 Verdadero positivo = correctamente identificado
+
 Falso positivo = incorrectamente identificado
+
 Verdadero negativo = correctamente rechazado
+
 Falso negativo = incorrectamente rechazado
 
 Por ejemplo, pruebas medicas:
 
 Verdadero positivo = personas enfermas correctamente diagnosticadas como enfermas
+
 Falso positivo = personas saludables incorrectamente identificadas como enfermas
+
 Verdadero negativo = personas saludables correctamente identificadas como saludables
+
 Falso negativo = personas enfermas incorrectamente identificadas como saludables
 
 Test = Predictor, Disease = Real true
 
 Sensitivity => Pr (positive test | disease) => TP / (TP + FN)
+
 Specificity => Pr (negative test | no disease) => TN / (FP + TN)
+
 Positive predictive value => Pr (disease | positive test) => TP / (TP + FP)
+
 Negative predictive value => Pr (correct outcome) (TP + TN) / (TP + FP + FN + TN)
 
 En datos continuos buscamos minimizar la media de la raiz cuadrada del error al cuadrado RMSE
