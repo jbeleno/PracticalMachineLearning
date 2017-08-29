@@ -100,6 +100,8 @@ f(x) = sgn(SUM(at * ht(x)))
 	* Da más valor a los puntos que están mal clasificados y no están en el modelo
 	y selecciona el siguiente h
 
+Adaboost es el clasificador Boost más famoso
+
 Notas:
 
 * Boosting puede ser usado en cualquier subconjunto de clasificadores
@@ -113,6 +115,47 @@ escogencia de las funciones básicas de clasificación y reglas de combinación
 
 Nota: Tutoriales [aquí](https://www.cc.gatech.edu/~thad/6601-gradAI-fall2013/boosting.pdf), 
 [aquí](http://webee.technion.ac.il/people/rmeir/BoostingTutorial.pdf),
-[aquí](http://www.netflixprize.com/assets/GrandPrize2009_BPC_BigChaos.pdf) y [aquí](https://kaggle2.blob.core.windows.net/wiki-files/327/09ccf652-8c1c-4a3d-b979-ce2369c985e4/Willem%20Mestrom%20-%20Milestone%201%20Description%20V2%202.pdf)
+[aquí](http://www.netflixprize.com/assets/GrandPrize2009_BPC_BigChaos.pdf) 
+y [aquí](https://kaggle2.blob.core.windows.net/wiki-files/327/09ccf652-8c1c-4a3d-b979-ce2369c985e4/Willem%20Mestrom%20-%20Milestone%201%20Description%20V2%202.pdf)
 
-Adaboost es el clasificador Boost más famoso
+# Predicciones basadas en modelos
+
+1) Asume que los datos siguen un modelo probabilistico
+2) Usa el teorema de Bayes para identificar clasificadores optimos
+
+Pros:
+
+* Puede tomar ventaja de la estructura de los datos
+* Puede ser computacionalmente conveniente
+* Son razonablemente precisos en problemas de la vida real
+
+Contra:
+
+* Hace suposiciones adicionales acerca de los datos
+* Cuando el modelo es incorrecto, puedes obtener una precisión reducida
+
+Enfoque:
+
+1) La meta es crear un modelo parametrico para la distribución condicional
+P(Y = k | X = x), donde k es una clase especifica y x es un conjunto de predictores
+2) Un enfoque típico es aplicar el teorema de Bayes
+3) Tipicamente se proveen las probabilidades a priori
+4) Una opción común para una distribución gausiana
+5) Estimar los parametros de los datos
+6) Clasificar la clase con el mayor valor de P(Y = k | X = x)
+
+Clasificadores usando este enfoque:
+
+* Analisis linear de discriminantes asume que la función es una gausiana
+multivariada con las mismas covarianzas
+* Analisis cuadratico de discriminantes asume que la función es una gausiana
+multivariada con diferentes covarianzas
+* Las prediciones basadas en modelos asumen versiones más complicadas
+de la matriz de covarianza
+* Naive Bayes asume independencia entre las caracteristicas del modelo
+	* Es útil cuando hay muchas variables binarias o variables categoricas.
+	* Es usada en clasificación de textos.
+
+Notes: [The Elements of Statistical Learning](https://web.stanford.edu/~hastie/Papers/ESLII.pdf)
+
+
